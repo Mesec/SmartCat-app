@@ -1,0 +1,7 @@
+.nav-link:hover {
+  background-color:#e0f7fa;
+  color: #74a9b0;
+}
+.activeRoute {
+  background-color: #e0f7fa;
+}
