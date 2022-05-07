@@ -14,9 +14,9 @@ export default function Header(props: IProps): JSX.Element {
         bgcolor: '#b2ebf2', 
         display: 'flex', 
         alignItems: 'center', 
-        justifyContent: 'flex-end', 
         paddingRight: '20px' 
-        } }>
+        } }
+        >
           { children }
         </Box>
   )

@@ -1,14 +1,16 @@
-import { Button, Card, CardActions, CardContent, Typography } from '@mui/material'
+import { Button, Card, CardActions, CardContent, Grid, Typography } from '@mui/material'
+import { Dispatch, SetStateAction } from 'react';
 import { IProduct } from '../../lib/interfaces';
 
 interface IProps {
   product: IProduct;
   deleteProduct: (productId: string) => void;
   redirect: (path: string) => void;
+  setProductId: Dispatch<SetStateAction<string>>
 }
 
 export default function ProductCard(props: IProps) {
-  const { product, deleteProduct, redirect} = props;
+  const { product, deleteProduct, redirect, setProductId} = props;
   
   const formatDate =(date: Date | null) => {
     if(date !== null) {
@@ -21,14 +23,22 @@ export default function ProductCard(props: IProps) {
     }
   }
 
+  const goToEditPage =()=> {
+    if(typeof product.id === 'string') {
+      setProductId(product.id);
+    }
+    redirect('/edit-product')
+  }
+
   return (
-    <Card sx={ { maxWidth: 345 } }>
+    <Grid item xs={5}>
+      <Card sx={{width: '100%'}}>
       <CardContent>
         <Typography variant="subtitle2">
           Product name: { product.name }
         </Typography>
         <Typography variant="subtitle2">
-          Manufacturer name: Manufacturer
+          Manufacturer name: { product?.manufacturer?.name }
         </Typography>
         <Typography variant="subtitle2">
           Price: { product.price } €
@@ -38,9 +48,10 @@ export default function ProductCard(props: IProps) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={() => redirect('/edit-product')}>Edit</Button>
+        <Button size="small" onClick={goToEditPage}>Edit</Button>
         <Button size="small" onClick={() => deleteProduct(product.id ? product.id : '')}>Delete</Button>
       </CardActions>
     </Card>
+    </Grid>
   )
 }

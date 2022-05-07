@@ -1,56 +1,55 @@
 import React from 'react'
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Box} from '@mui/material';
-import FormLayout from '../../../components/layout/form';
-import { C_Products } from '../../../lib/worker';
-import { IProduct } from '../../../lib/interfaces';
+import { manufacturerData } from '../../../lib/data'
+import { FakeApi } from '../../../lib/api';
+import { IProduct, IManufacturer } from '../../../lib/interfaces';
 import { useNavigate } from 'react-router-dom';
+import FormLayout from '../../../components/layout/form';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Header from '../../../components/header'
 import ProductForm from '../../../components/product-form';
 
-
 interface IProps {
-  //  updateData: IProduct;
+  productId: string;
 }
 
 export default function EditProduct(props: IProps): JSX.Element {
-  // const {updateData} = props;
+  const { productId } = props;
   const navigate = useNavigate();
   const [productData, setProductData] = React.useState<IProduct>({
     name: '',
-    price: null,
+    price: 0,
     expiryDate: null
   })
 
-  const changeHandler = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void => {
-    const { name, value } = e.target;
-    const updatedData = { ...productData, [name]: value }
-    setProductData(updatedData)
-  };
-
-  const dateChangeHandler = (newDate: Date | null): void => {
-    const updatedData = { ...productData, expiryDate: newDate }
-    setProductData(updatedData)
-  }
-
   const updateProductHandler = (): void => {
-    C_Products.createProduct(productData);
+    FakeApi.editProduct(productData);
     navigate('/')
   }
 
   React.useEffect(() => {
-    // setProductData(updateData);
-  }, [])
+    if(productId) {
+      const data = FakeApi.getProductById(productId);
+      setProductData(data)
+    }
+  }, [productId])
 
+    // input change handler
+  const changeHandler = (name: string, value: string | Date | IManufacturer | null): void => {
+    const updatedData = { ...productData, [name]: value };
+    setProductData(updatedData);
+  }
+  // console.log(productData)
   return (
     <Box>
       <Header></Header>
       <FormLayout title="Create product" icon={ <AddCircleIcon /> }>
         <ProductForm 
           productData={productData} 
-          dateChangeHandler={dateChangeHandler} 
+          manufacturerData={manufacturerData}
           changeHandler={changeHandler} 
-          submitHandler={updateProductHandler}/>
+          submitHandler={updateProductHandler}
+          />
       </FormLayout>
     </Box>
   )

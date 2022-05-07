@@ -46,7 +46,7 @@ export let customTheme = createTheme({
     },
     secondary: {
       light: '#62efff',
-      main: '#00bcd4',
+      main: '#b2ebf2',
       dark: '#008ba3',
       contrastText: '#fafafa'
     },

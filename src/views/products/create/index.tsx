@@ -1,36 +1,32 @@
 import React from 'react'
 import { Box } from '@mui/material';
-import { C_Products } from '../../../lib/worker';
-import { IProduct } from '../../../lib/interfaces';
+import { FakeApi } from '../../../lib/api';
+import { IProduct, IManufacturer } from '../../../lib/interfaces';
 import { useNavigate } from 'react-router-dom';
+import { manufacturerData } from '../../../lib/data'
 import Header from '../../../components/header'
 import FormLayout from '../../../components/layout/form';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ProductForm from '../../../components/product-form';
-import './index.css'
 
 export default function CreateProduct(): JSX.Element {
   const navigate = useNavigate();
-  const [productData, setProductData] = React.useState<IProduct>({
+    const [productData, setProductData] = React.useState<IProduct>({
     name: '',
-    price: null,
+    price: 0,
     expiryDate: null
   })
 
-  const changeHandler = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>): void => {
-    const { name, value } = e.target;
-    const updatedData = { ...productData, [name]: value }
-    setProductData(updatedData)
-  };
-
-  const dateChangeHandler = (newDate: Date | null): void => {
-    const updatedData = { ...productData, expiryDate: newDate }
-    setProductData(updatedData)
+    // create product
+  const createProductHandler = (): void => {
+    FakeApi.createProduct(productData);
+    navigate('/');
   }
 
-  const createProductHandler = (): void => {
-    C_Products.createProduct(productData);
-    navigate('/')
+    // input change handler
+  const changeHandler = (name: string, value: string | Date | IManufacturer | null): void => {
+    const updatedData = { ...productData, [name]: value };
+    setProductData(updatedData);
   }
 
   return (
@@ -39,7 +35,7 @@ export default function CreateProduct(): JSX.Element {
       <FormLayout title="Create product" icon={ <AddCircleIcon /> }>
        <ProductForm 
           productData={productData} 
-          dateChangeHandler={dateChangeHandler} 
+          manufacturerData={manufacturerData}
           changeHandler={changeHandler} 
           submitHandler={createProductHandler}
           />

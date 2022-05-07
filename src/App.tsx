@@ -4,29 +4,51 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import { customTheme } from './assets/theme/index';
-import Products from './views/products/results';
+import Results from './views/products/results';
 import AboutUs from './views/about-us';
 import CreateProduct from './views/products/create'
 import EditProduct from './views/products/edit'
-import { IProduct } from './lib/interfaces';
+import Statistics from './views/statistics';
+import { dummyData } from './lib/data';
 
 function App(): JSX.Element {
-  const [activeRoute, setActiveRoute] = React.useState<string>('/')
+  const [activeRoute, setActiveRoute] = React.useState<string>('/');
+  const [productId, setProductId] = React.useState<string>('')
 
   const setActiveRouteHadnler = (path: string): void => {
     setActiveRoute(path)
   }
 
+  React.useEffect(() => {
+    const data = dummyData;
+    localStorage.setItem('products', JSON.stringify(data));
+  }, []);
   return (
     <Router>
       <CssBaseline>
         <ThemeProvider theme={ customTheme }>
-          <Layout activeRoute={activeRoute} setActiveRoute={setActiveRouteHadnler}>
+          <Layout activeRoute={ activeRoute } setActiveRoute={ setActiveRouteHadnler }>
             <Routes>
-              <Route path='/' element={ <Products setActiveRoute={ setActiveRouteHadnler } /> } />
-              <Route path='/create-product' element={ <CreateProduct /> } />
-              <Route path='/edit-product' element={ <EditProduct />} />
-              <Route path='/about-us' element={ <AboutUs /> } />
+              <Route
+                path='/'
+                element={ <Results setActiveRoute={ setActiveRouteHadnler } setProductId={setProductId}/> }
+              />
+              <Route
+                path='/create-product'
+                element={ <CreateProduct  /> }
+              />
+              <Route
+                path='/edit-product'
+                element={ <EditProduct productId={productId}/> }
+              />
+              <Route
+                path='/about-us'
+                element={ <AboutUs /> }
+              />
+              <Route
+                path='/statistics'
+                element={ <Statistics /> }
+              />
             </Routes>
           </Layout>
         </ThemeProvider>
