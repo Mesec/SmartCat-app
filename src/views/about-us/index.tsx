@@ -25,7 +25,7 @@ export default function AboutUs(): JSX.Element {
             All products are stored in the localStorage.
             I created several products for testing purposes, and they will be fetched and saved in a local state when root component (App.js) mounts.
             <br />
-            The CRUD logic is places in lib folder, in a file named "api.ts".
+            The CRUD logic is located in the lib folder, in a file named "api.ts".
           </Typography>
 
           <Typography>

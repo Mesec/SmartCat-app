@@ -35,16 +35,16 @@ export default function ProductCard(props: IProps) {
       <Card sx={{width: '100%'}}>
       <CardContent>
         <Typography variant="subtitle2">
-          Product name: { product.name }
+          Product name: <strong>{ product.name }</strong>
         </Typography>
         <Typography variant="subtitle2">
-          Manufacturer name: { product?.manufacturer?.name }
+          Manufacturer name: <strong>{ product?.manufacturer?.name }</strong>
         </Typography>
         <Typography variant="subtitle2">
-          Price: { product.price } €
+          Price: <strong>{ product.price } €</strong>
         </Typography>
         <Typography variant="subtitle2">
-          Expiry date: {formatDate(product.expiryDate)}
+          Expiry date: <strong>{formatDate(product.expiryDate)}</strong>
         </Typography>
       </CardContent>
       <CardActions>
