@@ -20,8 +20,13 @@ function App(): JSX.Element {
   }
 
   React.useEffect(() => {
-    const data = dummyData;
-    localStorage.setItem('products', JSON.stringify(data));
+    const dataInitializes = localStorage.getItem('dataInitialized')
+
+    if(!dataInitializes) {
+      const data = dummyData;
+      localStorage.setItem('products', JSON.stringify(data));
+      localStorage.setItem('dataInitialized', 'true');
+    }
     
     const path = window.location.pathname;
     setActiveRoute(path);
