@@ -22,7 +22,11 @@ function App(): JSX.Element {
   React.useEffect(() => {
     const data = dummyData;
     localStorage.setItem('products', JSON.stringify(data));
+    
+    const path = window.location.pathname;
+    setActiveRoute(path);
   }, []);
+
   return (
     <Router>
       <CssBaseline>
