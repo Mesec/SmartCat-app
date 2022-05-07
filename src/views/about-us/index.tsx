@@ -15,11 +15,11 @@ export default function AboutUs(): JSX.Element {
             The application was made for job interview purposes. <br />
             It allows you to create, remove, update and delete a product,
             and also to check products statistics. <br />
-            The app has built in ReactJS (typescript) <strong style={ { color: '#77bac3' } }>v18.1.0</strong>, with a help of some dependency packages like MaterialUi and Recharts.
+            The app has built in ReactJS (typescript) <strong>v18.1.0</strong>, with a help of some dependency packages like MaterialUi and Recharts.
           </Typography>
           <Typography>
-            Npm <strong style={ { color: '#77bac3' } }>v6.14.15</strong> <br />
-            Node <strong style={ { color: '#77bac3' } }>v14.18.1</strong>
+            Npm <strong>v6.14.15</strong> <br />
+            Node <strong>v14.18.1</strong>
           </Typography>
           <Typography>
             All products are stored in the localStorage.
